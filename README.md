@@ -1,2 +1,3 @@
-# relaton_to_bibxml
-Convert relaton YAML file to BibXML
+# rel2bib
+
+Convert Relaton YAML file to BibXML

@@ -12,7 +12,7 @@ BIBXML_DIR = os.getenv("RFC_BIBXML_DIR", "rfcs")
 
 def get_content(data, field):
     try:
-        return data[field][0]["content"]
+        return escape(data[field][0]["content"])
     except KeyError:
         return ""
 
@@ -41,17 +41,17 @@ def get_authors(data):
     authors = ""
     for contributor in data["contributor"]:
         if "person" in contributor.keys():  # ignore organizations
-            fullname = contributor["person"]["name"]["completename"]["content"]
+            fullname = escape(contributor["person"]["name"]["completename"]["content"])
             try:
                 initials = contributor["person"]["name"]["given"]["formatted_initials"][
                     "content"
                 ]
-                initials_str = f'initials="{initials}"'
+                initials_str = f'initials="{escape(initials)}"'
             except KeyError:
                 initials_str = ""
-            surname = contributor["person"]["name"]["surname"]["content"]
+            surname = escape(contributor["person"]["name"]["surname"]["content"])
             try:
-                role = contributor["role"][0]["type"]
+                role = escape(contributor["role"][0]["type"])
                 authors += f'<author fullname="{fullname}" {initials_str} surname="{surname}" role="{role}"/>'
             except KeyError:
                 authors += f'<author fullname="{fullname}" {initials_str}" surname="{surname}/>'

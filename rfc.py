@@ -51,7 +51,7 @@ def get_authors(data):
             surname = contributor["person"]["name"]["surname"]["content"]
             try:
                 role = contributor["role"][0]["type"]
-                authors += f'<author fullname="{fullname}" {initials_str} surname="{surname} role="{role}"/>'
+                authors += f'<author fullname="{fullname}" {initials_str} surname="{surname}" role="{role}"/>'
             except KeyError:
                 authors += f'<author fullname="{fullname}" {initials_str}" surname="{surname}/>'
 

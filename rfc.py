@@ -2,6 +2,7 @@ import os
 import sys
 
 from datetime import datetime
+from xml.sax.saxutils import escape
 
 import yaml
 
@@ -19,7 +20,7 @@ def get_content(data, field):
 def get_abstract(data):
     abstract = get_content(data, "abstract")
     if abstract:
-        return f"<abstract><t>{abstract}</t></abstract>"
+        return f"<abstract><t>{escape(abstract)}</t></abstract>"
     else:
         return ""
 

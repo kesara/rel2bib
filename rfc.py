@@ -98,7 +98,7 @@ for filename in os.listdir(RELATON_DIR):
             rfc_number, bibxml = generate_bibxml(data)
 
             bibxml_file_path = os.path.join(
-                RELATON_DIR, f"reference.RFC.{rfc_number}.xml"
+                BIBXML_DIR, f"reference.RFC.{rfc_number}.xml"
             )
             with open(bibxml_file_path, "w", encoding="utf-8") as bibxml_file:
                 bibxml_file.write(bibxml)

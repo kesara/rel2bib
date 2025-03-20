@@ -2,6 +2,7 @@ import os
 import sys
 
 from datetime import datetime
+from xml.dom.minidom import parseString
 from xml.sax.saxutils import escape
 
 import yaml
@@ -69,16 +70,7 @@ def generate_bibxml(relaton_data):
     abstract = get_abstract(relaton_data)
     authors = get_authors(relaton_data)
 
-    bibxml = f"""<reference anchor="{rfc}" target="{link}">
-<front>
-    <title>{title}</title>
-    {authors}
-    {date}
-    {abstract}
-</front>
-<seriesInfo name="RFC" value="{rfc_number}"/>
-<seriesInfo name="DOI" value="{doi}"/>
-</reference>"""
+    bibxml = f"""<reference anchor="{rfc}" target="{link}"><front><title>{title}</title>{authors}{date}{abstract}</front><seriesInfo name="RFC" value="{rfc_number}"/><seriesInfo name="DOI" value="{doi}"/></reference>"""
 
     return [rfc_number, bibxml]
 
@@ -97,6 +89,8 @@ for filename in os.listdir(RELATON_DIR):
 
             data = yaml.safe_load(file)
             rfc_number, bibxml = generate_bibxml(data)
+            dom = parseString(bibxml)
+            bibxml = dom.toprettyxml(indent="  ")
 
             bibxml_file_path = os.path.join(
                 BIBXML_DIR, f"reference.RFC.{rfc_number}.xml"

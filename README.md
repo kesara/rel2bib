@@ -19,3 +19,15 @@ git clone --depth 1  https://github.com/ietf-tools/relaton-data-rfcs.git
 ```
 python rfc.py
 ```
+
+## Internet-Draft BibXML
+
+* Clone I-D relaton data
+```
+git clone --depth 1  https://github.com/ietf-tools/relaton-data-ids.git
+```
+
+* Generate BibXML files
+```
+python id.py
+```

@@ -6,22 +6,37 @@ from xml.dom.minidom import parseString
 from xml.sax.saxutils import escape
 
 import yaml
+from lxml import etree
 
 RELATON_DIR = os.getenv("RFC_RELATON_DIR", "relaton-data-rfcs/data/")
 BIBXML_DIR = os.getenv("RFC_BIBXML_DIR", "rfcs")
 
 
-def get_content(data, field):
+def get_content(data, field, escape_content=True):
     try:
-        return escape(data[field][0]["content"])
+        content = data[field][0]["content"]
+        if escape_content:
+            return escape(content)
+        else:
+            return content
     except KeyError:
         return ""
 
 
 def get_abstract(data):
-    abstract = get_content(data, "abstract")
+    abstract = get_content(data, "abstract", escape_content=False)
     if abstract:
-        return f"<abstract><t>{escape(abstract)}</t></abstract>"
+        paragraphs = []
+        try:
+            tree = etree.fromstring(f"<t>{abstract}</t>")
+            paragraphs = [
+                p.text
+                for p in tree.findall("p")
+                if (getattr(p, "text", "") or "").strip() != ""
+            ]
+        except (etree.XMLSyntaxError, ValueError):
+            paragraphs = [p.strip() for p in abstract.split("\n\n") if p.strip() != ""]
+        return f"<abstract><t>{escape(' '.join(paragraphs))}</t></abstract>"
     else:
         return ""
 

@@ -43,3 +43,15 @@ git clone --depth 1  https://github.com/ietf-tools/relaton-data-iana.git
 ```
 python iana.py
 ```
+
+## MISC BibXML
+
+* Clone MISC relaton data
+```
+git clone --depth 1  https://github.com/ietf-tools/relaton-data-misc.git
+```
+
+* Generate BibXML files
+```
+python misc.py
+```

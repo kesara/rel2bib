@@ -44,6 +44,18 @@ git clone --depth 1  https://github.com/ietf-tools/relaton-data-iana.git
 python iana.py
 ```
 
+## W3C BibXML
+
+* Clone W3C relaton data
+```
+git clone --depth 1  https://github.com/ietf-tools/relaton-data-w3c.git
+```
+
+* Generate BibXML files
+```
+python w3c.py
+```
+
 ## MISC BibXML
 
 * Clone MISC relaton data
